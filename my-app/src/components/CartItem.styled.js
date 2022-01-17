@@ -4,6 +4,7 @@ const StyledCartItem = styled.div`
   border: 1px solid #fff4;
   border-radius: 4px;
   background: #9991;
+  backdrop-filter: blur(4px);
   margin: 0.5rem;
   padding: 1rem;
   display: flex;

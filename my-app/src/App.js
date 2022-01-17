@@ -16,6 +16,7 @@ const StyledBackground = styled.div`
     height: 100vh;
     width: 100%;
     position: fixed;
+    z-index: -1;
   }
 `;
 
