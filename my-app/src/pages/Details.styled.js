@@ -2,15 +2,16 @@ import styled from "styled-components";
 
 const StyledDetails = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
+  /* flex-wrap: wrap; */
+  min-height: 100vh;
+  padding-top: 5rem;
   .item-image {
     width: 50%;
     display: flex;
     justify-content: center;
     img {
-      width: 80%;
-      height: 75vh;
+      width: 40vw;
+      height: 40vw;
       object-fit: cover;
       border-radius: 0.75rem;
     }
@@ -49,6 +50,44 @@ const StyledDetails = styled.div`
 
       .buy {
         margin-left: 1rem;
+      }
+    }
+  }
+  @media (max-width: 786px) {
+    flex-direction: column;
+    .item-image {
+      width: 100%;
+      img {
+        width: 350px;
+        height: 350px;
+      }
+    }
+    .item-details {
+      padding: 1.25rem;
+      width: 100%;
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+
+      .item-price {
+        font-size: 1.25rem;
+      }
+
+      .button-container {
+        justify-content: center;
+        margin-top: 0.25rem;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  @media (max-width: 390px) {
+    .item-image {
+      img {
+        height: 250px;
+        width: 250px;
       }
     }
   }

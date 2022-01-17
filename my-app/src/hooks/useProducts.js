@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "../utils/constants";
-const localCache = [];
+let localCache = [];
 
 const useProducts = (id = null) => {
   const [products, setResponse] = useState([]);
@@ -8,13 +8,13 @@ const useProducts = (id = null) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    console.log("useEffect");
     setLoading(true);
     setError(false);
     if (id) {
       const product = localCache.find((item) => item.id === id);
       if (product) {
         setResponse(product);
+        console.log(product);
       } else {
         fetch(`${API_URL}/product/details/${id}`)
           .then((res) => {
@@ -36,7 +36,7 @@ const useProducts = (id = null) => {
         })
         .then((data) => {
           //   localCache.length = 0;
-          //   localCache.push(...data);
+          localCache.push(...data.data);
           setResponse(data.data);
         })
         .catch((err) => {
