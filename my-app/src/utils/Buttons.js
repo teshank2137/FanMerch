@@ -30,6 +30,10 @@ export const Button = styled(UnStyledButton)`
   &:hover {
     transform: scale(1.05);
   }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const PrimaryButton = styled(Button)`
