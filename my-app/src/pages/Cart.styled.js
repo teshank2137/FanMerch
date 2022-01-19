@@ -17,6 +17,14 @@ const StyledCart = styled.div`
     align-self: flex-end;
     margin-right: 1rem;
   }
+  .add-items {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    h3 {
+      padding: 1rem;
+    }
+  }
 `;
 
 export default StyledCart;
