@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledCart = styled.div`
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;

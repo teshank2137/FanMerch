@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import StyledCartItem from "./CartItem.styled";
 import { API_URL } from "../utils/constants";
-import { updateProductCountInCart, removeFromCart } from "../helpfulFunction";
+import updateCart from "../actionCreators/updateCart";
 
 const CartItem = ({ item }) => {
   const [quantity, setQuantity] = useState(item.quantity);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const updateQuantity = (by) => {
     if (quantity + by <= 0) {
-      removeFromCart(item.id);
+      let newCart = cart.filter((product) => product.id !== item.id);
+      dispatch(updateCart(newCart));
+      return;
     } else {
-      updateProductCountInCart(item.id, by);
-      setQuantity(quantity + by);
+      cart.forEach((product) => {
+        if (product.id === item.id) {
+          product.quantity += by;
+          setQuantity(product.quantity);
+        }
+      });
+      dispatch(updateCart(cart));
     }
   };
   useEffect(() => {}, []);

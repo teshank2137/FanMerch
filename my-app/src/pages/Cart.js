@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
-import { getCartItems } from "../helpfulFunction";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledCart from "./Cart.styled";
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    setCart(getCartItems);
-  }, []);
+  const cart = useSelector((state) => state.cart);
   console.log(cart);
   return (
     <StyledCart>

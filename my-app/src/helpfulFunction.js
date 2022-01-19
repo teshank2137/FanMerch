@@ -3,6 +3,12 @@ export const getCartItems = () => {
   return cart ? JSON.parse(cart) : [];
 };
 
+export const setCart = (cart) => {
+  window.localStorage.setItem("cart", JSON.stringify(cart));
+  console.log("cart saved in localStorage");
+  return getCartItems();
+};
+
 export const addToCart = (item) => {
   const cart = getCartItems();
   if (isPresentInCart(item.id)) {

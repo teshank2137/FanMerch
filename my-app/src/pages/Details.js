@@ -1,22 +1,43 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+
 import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
 import Loading from "../components/Loding";
 import useProducts from "../hooks/useProducts";
 import StyledDetails from "./Details.styled";
 import { API_URL } from "../utils/constants";
-import { isPresentInCart, addToCart } from "../helpfulFunction";
+import updateCart from "../actionCreators/updateCart";
 
 const Details = () => {
   const params = useParams();
   const [product, loading, error] = useProducts(params.id);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [cartText, setText] = useState("Add to cart");
   const ref = useRef(null);
   const handleCart = (e) => {
+    console.log("clicked");
     e.preventDefault();
-    addToCart(product);
-    setText("Added to cart");
+    let productInCart = cart.find((item) => item.id === product.id);
+    if (productInCart) {
+      console.log("Product already in Cart");
+    } else {
+      let newCartItem = product;
+      newCartItem.quantity = 1;
+      let newCart = [newCartItem, ...cart];
+      dispatch(updateCart(newCart));
+      console.log("added to cart");
+    }
   };
+  useEffect(() => {
+    let productInCart = cart.find((item) => item.id === product.id);
+    if (productInCart) {
+      setText("Added To cart");
+    } else {
+      setText("Add To cart");
+    }
+  }, [cart, product]);
 
   return (
     <StyledDetails>
@@ -42,7 +63,7 @@ const Details = () => {
         ) : null}
         <div className="button-container">
           <SecondaryButton className="item-button cart" onClick={handleCart}>
-            {isPresentInCart(product.id) ? "Added to cart" : cartText}
+            {cartText}
           </SecondaryButton>
           <PrimaryButton className="item-button buy">Buy now</PrimaryButton>
         </div>

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 import NavBar from "./components/Nanbar";
 import Cart from "./pages/Cart";
 import Details from "./pages/Details";
@@ -22,20 +24,22 @@ const StyledBackground = styled.div`
 
 function App() {
   return (
-    <StyledBackground className="App">
-      <div className="back"></div>
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/account/login" element={<Login />} />
-          <Route path="/account/signup" element={<Signup />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/details/:id" element={<Details />} />
-        </Routes>
-      </Router>
-    </StyledBackground>
+    <Provider store={store}>
+      <StyledBackground className="App">
+        <div className="back"></div>
+        <Router>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/account/login" element={<Login />} />
+            <Route path="/account/signup" element={<Signup />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/details/:id" element={<Details />} />
+          </Routes>
+        </Router>
+      </StyledBackground>
+    </Provider>
   );
 }
 
