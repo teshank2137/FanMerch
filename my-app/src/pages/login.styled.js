@@ -23,6 +23,16 @@ const StyledLogin = styled.div`
       justify-content: space-between;
       margin-left: 0.5rem;
     }
+    .signup-btn {
+      cursor: pointer;
+    }
+  }
+  .errors {
+    border: 2px dashed red;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
   }
 `;
 export default StyledLogin;

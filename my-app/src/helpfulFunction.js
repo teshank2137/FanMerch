@@ -9,6 +9,16 @@ export const setCart = (cart) => {
   return getCartItems();
 };
 
+export const setToken = (token) => {
+  window.localStorage.setItem("token", JSON.stringify(token));
+  return token;
+};
+
+export const getToken = () => {
+  const token = window.localStorage.getItem("token");
+  return token ? JSON.parse(token) : {};
+};
+
 export const addToCart = (item) => {
   const cart = getCartItems();
   if (isPresentInCart(item.id)) {

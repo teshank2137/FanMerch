@@ -9,6 +9,17 @@ const StyledSignup = styled.div`
     margin: 1rem;
     text-align: center;
   }
+
+  .errors {
+    border: 2px dashed red;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    .error-message {
+      list-style: none;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+  }
   .signup-form {
     display: flex;
     flex-direction: column;
