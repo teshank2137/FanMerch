@@ -10,6 +10,7 @@ import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
 import background from "./utils/back.svg";
 import Home from "./pages/Home";
+import Checkout from "./pages/Checkout";
 
 const StyledBackground = styled.div`
   .back {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/account/signup" element={<Signup />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/details/:id" element={<Details />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </Router>
       </StyledBackground>

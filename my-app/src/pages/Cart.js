@@ -19,7 +19,9 @@ const Cart = () => {
           </PrimaryButton>
         </div>
       ) : (
-        <PrimaryButton className="btn">Checkout</PrimaryButton>
+        <PrimaryButton className="btn" onClick={(e) => navigation("/checkout")}>
+          Checkout
+        </PrimaryButton>
       )}
 
       <div className="cart">
@@ -28,7 +30,9 @@ const Cart = () => {
         ))}
       </div>
       {cart.length <= 3 ? null : (
-        <PrimaryButton className="btn">Checkout</PrimaryButton>
+        <PrimaryButton className="btn" onClick={(e) => navigation("/checkout")}>
+          Checkout
+        </PrimaryButton>
       )}
     </StyledCart>
   );

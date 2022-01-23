@@ -2,10 +2,14 @@ import StyledNavbar from "./Navbar.styled";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from "@mui/icons-material/Login";
 import { useNavigate } from "react-router";
+import useIsAuth from "../hooks/useIsAuth";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const navigation = useNavigate();
+  const auth = useSelector((state) => state.auth);
 
   return (
     <StyledNavbar className="navbar">
@@ -38,12 +42,16 @@ const NavBar = () => {
           />
         </div>
         <div className="navbar-menu-item">
-          <PersonIcon
-            fontSize="large"
-            onClick={() => {
-              navigation("/account/login");
-            }}
-          />
+          {auth ? (
+            <PersonIcon fontSize="large" />
+          ) : (
+            <LoginIcon
+              fontSize="large"
+              onClick={() => {
+                navigation("/account/login");
+              }}
+            />
+          )}
         </div>
       </div>
     </StyledNavbar>

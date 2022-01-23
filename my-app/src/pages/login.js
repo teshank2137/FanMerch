@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { API_URL, headers } from "../utils/constants";
 import updateToken from "../actionCreators/updateToken";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledLogin from "./login.styled";
 import Input from "../utils/Input.styled";
+import loginUser from "../actionCreators/login";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errors, setErrors] = useState([]);
+  const location = useLocation();
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const handleLogin = async (e) => {
@@ -30,9 +32,12 @@ const Login = () => {
       if (response.status < 400) {
         setError(false);
         setErrors();
-        dispatch(updateToken(data.token));
+        dispatch(updateToken(data));
+        dispatch(loginUser());
         console.log("dispatched");
-        navigation("/");
+        console.log(location);
+        navigation(location.state ? location.state.from.pathname : "/");
+        // navigation("/");
       } else if (response.status >= 400) {
         setError(true);
         setErrors("Incorrect Credentials");

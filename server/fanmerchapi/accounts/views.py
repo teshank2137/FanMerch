@@ -29,7 +29,9 @@ class ProfileView(APIView):
     def get(self, request):
         user = User.objects.get(pk=request.user.id)
         serializer = UserDataSerializer(user.userdata)
-        return Response({'status': 'ok', 'data': serializer.data})
+        userSerializer = UserSerializer(user)
+        data = {**serializer.data, ** userSerializer.data}
+        return Response({'status': 'ok', 'data': data})
 
     def patch(self, request):
         user = User.objects.get(pk=request.user.id)

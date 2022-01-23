@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+import { API_URL, headers } from "./utils/constants";
+
 export const getCartItems = () => {
   const cart = window.localStorage.getItem("cart");
   return cart ? JSON.parse(cart) : [];
@@ -19,47 +22,22 @@ export const getToken = () => {
   return token ? JSON.parse(token) : {};
 };
 
-export const addToCart = (item) => {
-  const cart = getCartItems();
-  if (isPresentInCart(item.id)) {
-    console.log("product already added to cart");
-  } else {
-    item.quantity = 1;
-    cart.push(item);
-  }
-  window.localStorage.setItem("cart", JSON.stringify(cart));
-};
-
-export const removeFromCart = (id) => {
-  const cart = getCartItems();
-  const newCart = cart.filter((cartItem) => cartItem.id !== id);
-  window.localStorage.setItem("cart", JSON.stringify(newCart));
-};
-
-export const isPresentInCart = (id) => {
-  const cart = getCartItems();
-  let prod = cart.find((item) => item.id === id);
-  if (prod) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const updateProductCountInCart = (id, delimiter = 1) => {
-  const cart = getCartItems();
-  if (isPresentInCart(id)) {
-    cart.forEach((prod) => {
-      if (prod.id === id) {
-        prod.quantity += delimiter;
-        if (prod.quantity <= 0) {
-          removeFromCart(id);
-          throw new Error("Product count 0 and removed");
-        }
-      }
+export const refreshToken = async (token) => {
+  try {
+    const res = await fetch(API_URL + "/accounts/refresh/", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        refresh: token.refresh,
+      }),
     });
-    window.localStorage.setItem("cart", JSON.stringify(cart));
-  } else {
-    throw new Error("Product not in cart");
+    if (res.status < 400) {
+      const data = await res.json();
+      return data;
+    } else {
+      return false;
+    }
+  } catch {
+    return false;
   }
 };
