@@ -1,13 +1,21 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import CartItem from "../components/CartItem";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledCart from "./Cart.styled";
+import { getCartTotal } from "../helpfulFunction";
+import { API_URL, headers } from "../utils/constants";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const total = useState(getCartTotal(cart));
   const navigation = useNavigate();
   console.log(cart);
+  const createOrder = (e) => {
+    e.preventDefault();
+    navigation("/checkout");
+  };
   return (
     <StyledCart>
       <h1>Cart</h1>
@@ -19,9 +27,12 @@ const Cart = () => {
           </PrimaryButton>
         </div>
       ) : (
-        <PrimaryButton className="btn" onClick={(e) => navigation("/checkout")}>
-          Checkout
-        </PrimaryButton>
+        <div>
+          <h2>Cart Total {total}/-</h2>
+          <PrimaryButton className="btn" onClick={createOrder}>
+            Checkout
+          </PrimaryButton>
+        </div>
       )}
 
       <div className="cart">
@@ -30,7 +41,7 @@ const Cart = () => {
         ))}
       </div>
       {cart.length <= 3 ? null : (
-        <PrimaryButton className="btn" onClick={(e) => navigation("/checkout")}>
+        <PrimaryButton className="btn" onClick={createOrder}>
           Checkout
         </PrimaryButton>
       )}

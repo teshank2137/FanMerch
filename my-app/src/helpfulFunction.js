@@ -41,3 +41,9 @@ export const refreshToken = async (token) => {
     return false;
   }
 };
+
+export const getCartTotal = (cart) => {
+  let sum = 0;
+  cart.forEach((item) => (sum += item.price * item.quantity));
+  return sum;
+};
