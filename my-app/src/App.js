@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import background from "./utils/back.svg";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
+import Profile from "./pages/Profile";
 
 const StyledBackground = styled.div`
   .back {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
       </StyledBackground>

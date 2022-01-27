@@ -1,8 +1,7 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledShop = styled.div`
-  padding-top: 5rem;
-  min-height: 100vh;
+const StyledShop = styled(StyledContainer)`
   h1 {
     font-size: 2.5rem;
     margin: 1rem;

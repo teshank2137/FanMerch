@@ -1,8 +1,7 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledLogin = styled.div`
-  height: 100vh;
-  padding-top: 5rem;
+const StyledLogin = styled(StyledContainer)`
   h1 {
     font-size: 2.5rem;
     margin: 1rem;

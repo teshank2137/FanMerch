@@ -1,8 +1,7 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledSignup = styled.div`
-  height: 100vh;
-  padding-top: 5rem;
+const StyledSignup = styled(StyledContainer)`
   h1 {
     font-size: 2.5rem;
     font-weight: bold;
@@ -34,6 +33,9 @@ const StyledSignup = styled.div`
       justify-content: space-between;
       align-items: center;
       margin: 0.5rem;
+    }
+    .login-btn {
+      cursor: pointer;
     }
   }
 `;

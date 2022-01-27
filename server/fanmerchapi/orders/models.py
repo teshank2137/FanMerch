@@ -25,6 +25,7 @@ class Orders(models.Model):
     razorpay_payment_id = models.CharField(max_length=150, null=True)
     razorpay_order_id = models.CharField(max_length=150, null=True)
     razorpay_signature = models.CharField(max_length=200, null=True)
+    order_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username + '-' + self.status

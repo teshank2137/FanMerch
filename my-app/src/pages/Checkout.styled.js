@@ -1,16 +1,15 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledCheckout = styled.div`
-  padding-top: 5rem;
+const StyledCheckout = styled(StyledContainer)`
   h1 {
     font-size: 2.5rem;
-    margin: 1rem;
+    margin-left: 0;
   }
   main {
-    margin: 1rem;
     h2 {
       text-align: end;
-      padding: 1rem;
+      padding: 0 0 1rem 0;
       font-size: 1rem;
       font-weight: normal;
       .total {
@@ -21,11 +20,11 @@ const StyledCheckout = styled.div`
     form {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-gap: 1rem;
       .form-group {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        padding: 0.5rem;
         grid-column: span 1;
       }
       #address {

@@ -6,6 +6,7 @@ import { API_URL, headers } from "../utils/constants";
 import Input from "../utils/Input.styled";
 import StyledSignup from "./Signup.styled";
 import updateToken from "../actionCreators/updateToken";
+import loginUser from "../actionCreators/login";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -41,6 +42,7 @@ const Signup = () => {
         setError(false);
         setErrors([]);
         dispatch(updateToken(data.token));
+        dispatch(loginUser());
         console.log("dispatched");
         navigation("/");
       } else if (response.status >= 400) {

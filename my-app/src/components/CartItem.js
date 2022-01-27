@@ -4,7 +4,7 @@ import StyledCartItem from "./CartItem.styled";
 import { API_URL } from "../utils/constants";
 import updateCart from "../actionCreators/updateCart";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, callback }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -12,7 +12,6 @@ const CartItem = ({ item }) => {
     if (quantity + by <= 0) {
       let newCart = cart.filter((product) => product.id !== item.id);
       dispatch(updateCart(newCart));
-      return;
     } else {
       cart.forEach((product) => {
         if (product.id === item.id) {
@@ -22,6 +21,7 @@ const CartItem = ({ item }) => {
       });
       dispatch(updateCart(cart));
     }
+    callback();
   };
   useEffect(() => {}, []);
   return (

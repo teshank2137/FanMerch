@@ -44,13 +44,16 @@ class PaymentView(APIView):
         if order.isPaid:
             return Response({'status': 'bad request', 'error': 'Order already paid'}, status=400)
 
-        client = razorpay.Client(
-            auth=(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET')))
+        try:
+            client = razorpay.Client(
+                auth=(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET')))
 
-        payment = client.order.create({
-            "amount": order.total * 100,
-            "currency": "INR",
-        })
+            payment = client.order.create({
+                "amount": order.total * 100,
+                "currency": "INR",
+            })
+        except:
+            return Response({'status': 'failed', 'message': 'Razorpay Error'}, status=500)
         order.razorpay_order_id = payment['id']
         order.save()
         return Response({'status': 'ok', 'data': payment})
@@ -64,6 +67,7 @@ class PaymentConfirmationView(APIView):
             razorpay_order_id = request.data.get('razorpay_order_id')
             razorpay_payment_id = request.data.get('razorpay_payment_id')
             razorpay_signature = request.data.get('razorpay_signature')
+
         except:
             return Response({'status': 'bad request', 'error': 'Invalid request'}, status=400)
 
@@ -82,9 +86,10 @@ class PaymentConfirmationView(APIView):
             'razorpay_payment_id': razorpay_payment_id,
             'razorpay_signature': razorpay_signature
         }
-        success = client.utility.verify_payment_signature(
-            data)  # return None when valid
-        if not success:
+
+        try:
+            client.utility.verify_payment_signature(data)
+        except:
             return Response({'status': 'bad request', 'error': 'Payment failed'}, status=400)
 
         if order.isPaid:
@@ -96,4 +101,4 @@ class PaymentConfirmationView(APIView):
         order.razorpay_signature = razorpay_signature
         order.status = 'Processing'
         order.save()
-        return Response({'status': 'Payment successfull', 'data': OrderSerializer(order).data})
+        return Response({'status': 'success', 'data': OrderSerializer(order).data})

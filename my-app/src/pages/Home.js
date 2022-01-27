@@ -19,7 +19,7 @@ const Home = () => {
           <img src={girl} alt="my-pic" />
         </div>
       </StyledHome>
-      <MyFavorite />
+      {/* <MyFavorite /> */}
     </div>
   );
 };

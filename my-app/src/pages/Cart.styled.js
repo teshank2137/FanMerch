@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledCart = styled.div`
-  padding-top: 5rem;
+const StyledCart = styled(StyledContainer)`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
@@ -10,9 +10,10 @@ const StyledCart = styled.div`
     margin: 1rem;
     margin-bottom: 0;
   }
-  .cart {
-    margin: 0.5rem;
+  .cart-total {
+    text-align: end;
   }
+
   .btn {
     align-self: flex-end;
     margin-right: 1rem;

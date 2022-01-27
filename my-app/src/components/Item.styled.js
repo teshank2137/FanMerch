@@ -13,9 +13,6 @@ const StyledItem = styled.div`
     .item-info {
       h3 {
         font-size: 1.5rem;
-        &:hover {
-          color: #f00;
-        }
       }
       p {
         font-size: 1.2rem;

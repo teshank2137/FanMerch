@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { API_URL, headers, RAZORPAY_KEY } from "../utils/constants";
 import StyledCheckout from "./Checkout.styled";
 import Input from "../utils/Input.styled";
 import { PrimaryButton } from "../utils/Buttons";
-import { getCartTotal } from "../helpfulFunction";
+import { getCartTotal, refreshToken } from "../helpfulFunction";
+import Loading from "../components/Loding";
+import updateToken from "../actionCreators/updateToken";
 
 const Checkout = () => {
   const auth = useSelector((state) => state.auth);
   const token = useSelector((state) => state.token);
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [isDefault, setIsDefault] = useState(false);
   const [total] = useState(getCartTotal(cart));
   const [orderID, setOrderID] = useState(null);
   const [profile, setProfile] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (auth === false) {
@@ -24,6 +28,7 @@ const Checkout = () => {
   }, [auth, navigate]);
 
   useEffect(() => {
+    setLoading(true);
     if (auth) {
       fetch(API_URL + "/accounts/profile/", {
         method: "GET",
@@ -41,6 +46,11 @@ const Checkout = () => {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       document.body.appendChild(script);
+    }
+    setLoading(false);
+    const newToken = refreshToken(token);
+    if (newToken) {
+      dispatch(updateToken(newToken));
     }
   }, []);
 
@@ -80,9 +90,15 @@ const Checkout = () => {
       amount: payment.data.amount,
       currency: "INR",
       name: "Fan Merch",
-      order_id: payment.data.order_id,
+      order_id: payment.data.id,
       handler: (response) => {
-        console.log(response);
+        handelSuccess(response);
+      },
+      modal: {
+        ondismiss: () => {
+          navigate("/profile");
+        },
+        confirm_close: true,
       },
       prefill: {
         name: profile.name,
@@ -98,11 +114,51 @@ const Checkout = () => {
     };
     const razor = new window.Razorpay(razorpayOptions);
     razor.open();
+    razor.on("close", () => {
+      navigate("/profile");
+    });
+  };
+
+  const handelSuccess = (response) => {
+    setLoading(true);
+    fetch(API_URL + "/order/verify-payment/", {
+      method: "POST",
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${token.access}`,
+      },
+      body: JSON.stringify({
+        ...response,
+      }),
+    })
+      .then((res) => {
+        if (res.status >= 400) {
+          window.alert("Bad Request try contacting support");
+          return res.json();
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        if (data.data.isPaid) {
+          setOrderID(data.data.id);
+          console.log(data);
+          navigate("/profile");
+        } else {
+          console.log(data);
+        }
+      });
+    setLoading(false);
   };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-    const order_id = await createOrder();
+    setLoading(true);
+    let order_id = orderID;
+    if (!orderID) {
+      order_id = await createOrder();
+      await setOrderID(order_id);
+    }
 
     if (order_id) {
       const pay = await fetch(API_URL + "/order/pay/", {
@@ -115,18 +171,26 @@ const Checkout = () => {
       });
       if (pay.status === 401) {
         window.alert("Session expired, please login again");
+        setLoading(false);
         navigate("/login");
         return;
       }
       if (pay.status === 200) {
         const payment = await pay.json();
+        setLoading(false);
         showRazorpay(payment);
       }
+    }
+    setLoading(false);
+    const newToken = refreshToken(token);
+    if (newToken) {
+      dispatch(updateToken(newToken));
     }
   };
 
   return (
     <StyledCheckout>
+      {loading ? <Loading /> : null}
       <h1>Checkout</h1>
       <main>
         <h2>

@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import updateToken from "../actionCreators/updateToken";
+import { refreshToken } from "../helpfulFunction";
 import { API_URL } from "../utils/constants";
 let localCache = [];
 
@@ -6,6 +9,8 @@ const useProducts = (id = null) => {
   const [products, setResponse] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const token = useSelector((state) => state.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -45,6 +50,10 @@ const useProducts = (id = null) => {
         });
     }
     setLoading(false);
+    const newToken = refreshToken(token);
+    if (newToken) {
+      dispatch(updateToken(newToken));
+    }
   }, [id]);
 
   return [products, loading, error];

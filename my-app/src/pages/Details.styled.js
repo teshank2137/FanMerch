@@ -1,10 +1,9 @@
 import styled from "styled-components";
+import StyledContainer from "../utils/StyledContainer";
 
-const StyledDetails = styled.div`
+const StyledDetails = styled(StyledContainer)`
   display: flex;
-  /* flex-wrap: wrap; */
   min-height: 100vh;
-  padding-top: 5rem;
   .item-image {
     width: 50%;
     display: flex;

@@ -5,13 +5,11 @@ import CartItem from "../components/CartItem";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledCart from "./Cart.styled";
 import { getCartTotal } from "../helpfulFunction";
-import { API_URL, headers } from "../utils/constants";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const total = useState(getCartTotal(cart));
+  const [total, setTotal] = useState(getCartTotal(cart));
   const navigation = useNavigate();
-  console.log(cart);
   const createOrder = (e) => {
     e.preventDefault();
     navigation("/checkout");
@@ -28,7 +26,7 @@ const Cart = () => {
         </div>
       ) : (
         <div>
-          <h2>Cart Total {total}/-</h2>
+          <h2 className="cart-total">Cart Total {total}/-</h2>
           <PrimaryButton className="btn" onClick={createOrder}>
             Checkout
           </PrimaryButton>
@@ -37,7 +35,13 @@ const Cart = () => {
 
       <div className="cart">
         {cart.map((item) => (
-          <CartItem key={item} item={item} />
+          <CartItem
+            key={item}
+            item={item}
+            callback={() => {
+              setTotal(getCartTotal(cart));
+            }}
+          />
         ))}
       </div>
       {cart.length <= 3 ? null : (
