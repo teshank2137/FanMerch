@@ -7,13 +7,11 @@ export const getCartItems = () => {
 
 export const setCart = (cart) => {
   window.localStorage.setItem("cart", JSON.stringify(cart));
-  console.log("cart saved in localStorage");
   return getCartItems();
 };
 
 export const setToken = (token) => {
   window.localStorage.setItem("token", JSON.stringify(token));
-  console.log("token saved");
   return token;
 };
 

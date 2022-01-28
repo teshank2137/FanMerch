@@ -11,23 +11,20 @@ import updateCart from "../actionCreators/updateCart";
 
 const Details = () => {
   const params = useParams();
-  const [product, loading, error] = useProducts(params.id);
+  const [product, loading] = useProducts(params.id);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [cartText, setText] = useState("Add to cart");
-  const ref = useRef(null);
   const handleCart = (e) => {
-    console.log("clicked");
     e.preventDefault();
     let productInCart = cart.find((item) => item.id === product.id);
     if (productInCart) {
-      console.log("Product already in Cart");
+      console.warn("Product already in Cart");
     } else {
       let newCartItem = product;
       newCartItem.quantity = 1;
       let newCart = [newCartItem, ...cart];
       dispatch(updateCart(newCart));
-      console.log("added to cart");
     }
   };
   useEffect(() => {

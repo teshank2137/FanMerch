@@ -32,11 +32,10 @@ const Order = ({ order, callback }) => {
     try {
       let res = await fetch(API_URL + "/order/", options);
       if (res.status < 400) {
-        console.log("Order deleted");
         callback(id);
       } else {
         const data = await res.json();
-        console.log(data);
+        console.error(data);
         window.alert("Something went wrong");
       }
     } catch {

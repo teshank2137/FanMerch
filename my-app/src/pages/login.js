@@ -34,8 +34,6 @@ const Login = () => {
         setErrors();
         dispatch(updateToken(data));
         dispatch(loginUser());
-        console.log("dispatched");
-        console.log(location);
         navigation(location.state ? location.state.from.pathname : "/");
         // navigation("/");
       } else if (response.status >= 400) {

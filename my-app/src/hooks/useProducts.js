@@ -19,7 +19,6 @@ const useProducts = (id = null) => {
       const product = localCache.find((item) => item.id === id);
       if (product) {
         setResponse(product);
-        console.log(product);
       } else {
         fetch(`${API_URL}/product/details/${id}`)
           .then((res) => {

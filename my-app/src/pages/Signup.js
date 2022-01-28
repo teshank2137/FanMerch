@@ -43,13 +43,12 @@ const Signup = () => {
         setErrors([]);
         dispatch(updateToken(data.token));
         dispatch(loginUser());
-        console.log("dispatched");
         navigation("/");
       } else if (response.status >= 400) {
         setError(true);
         setErrors(Object.values(data.data));
       }
-      console.log(data);
+      console.error(data);
     } catch {
       setErrors([...errors, ["Connection Lost"]]);
       setError(true);

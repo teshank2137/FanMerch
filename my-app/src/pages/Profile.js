@@ -35,12 +35,11 @@ const Profile = () => {
         const data = await res.json();
         data.data.reverse();
         setOrders(data.data);
-        console.log(data.data);
       } else if (res.status === 401) {
         navigate("/account/login");
       } else {
         const data = await res.json();
-        console.log(data);
+        console.error(data);
         window.alert("Something went wrong");
       }
     } catch {
@@ -50,7 +49,6 @@ const Profile = () => {
 
   const deleteOrder = (id) => {
     const newOrders = orders.filter((order) => order.id !== id);
-    console.log(newOrders);
     setOrders(newOrders);
   };
 

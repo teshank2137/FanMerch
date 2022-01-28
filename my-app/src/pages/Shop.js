@@ -4,10 +4,9 @@ import Item from "../components/Item";
 import StyledShop from "./Shop.styled";
 import Loading from "../components/Loding";
 const Shop = () => {
-  const [products, loading, error] = useProducts();
+  const [products, loading] = useProducts();
   const [sort, setSort] = useState("price");
   useEffect(() => {
-    console.log(products);
     if (sort === "price") {
       products.sort((a, b) => {
         if (parseInt(a.price) < parseInt(b.price)) {

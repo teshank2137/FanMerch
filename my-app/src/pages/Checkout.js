@@ -29,7 +29,6 @@ const Checkout = () => {
       navigate("/account/login");
     } else {
       if (state) {
-        console.log(state);
         setOrderID(state.order_id);
       }
     }
@@ -38,7 +37,6 @@ const Checkout = () => {
   useEffect(() => {
     setLoading(true);
     if (auth) {
-      console.log(token, "called");
       fetch(API_URL + "/accounts/profile/", {
         method: "GET",
         headers: {
@@ -153,10 +151,9 @@ const Checkout = () => {
           setOrderID(data.data.id);
 
           dispatch(updateCart([]));
-          console.log(data);
           navigate("/profile");
         } else {
-          console.log(data);
+          console.error(data);
         }
       })
       .finally(setLoading(false));
@@ -167,7 +164,6 @@ const Checkout = () => {
     setLoading(true);
     let order_id = await orderID;
     if (!orderID) {
-      console.log("create order is called");
       order_id = await createOrder();
       await setOrderID(order_id);
     }
@@ -202,9 +198,7 @@ const Checkout = () => {
         },
         body: JSON.stringify(profile),
       });
-      if (saveProfile.status < 400) {
-        console.log("saved");
-      } else if (saveProfile.status === 401) {
+      if (saveProfile.status === 401) {
         navigate("/account/login");
         return;
       }
