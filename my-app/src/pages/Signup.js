@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { PrimaryButton } from "../utils/Buttons";
@@ -17,11 +17,21 @@ const Signup = () => {
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (name.length >= 2 && email.length >= 5 && password.length >= 7) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [name, email, password, confirmPassword]);
+
   const handleSignup = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError(true);
-      setErrors([["Password dosen't match"]]);
+      setErrors([["Password doesn't match"]]);
       return;
     }
     let body = {
@@ -97,7 +107,9 @@ const Signup = () => {
         />
 
         <div className="btn-group">
-          <PrimaryButton onClick={handleSignup}>Signup</PrimaryButton>
+          <PrimaryButton onClick={handleSignup} disabled={disabled}>
+            Signup
+          </PrimaryButton>
         </div>
         <div
           className="login-btn"

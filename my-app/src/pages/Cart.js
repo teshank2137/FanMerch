@@ -36,7 +36,7 @@ const Cart = () => {
       <div className="cart">
         {cart.map((item) => (
           <CartItem
-            key={item}
+            key={item.id}
             item={item}
             callback={() => {
               setTotal(getCartTotal(cart));

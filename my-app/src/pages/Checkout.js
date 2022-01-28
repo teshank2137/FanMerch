@@ -21,7 +21,15 @@ const Checkout = () => {
   const [isDefault, setIsDefault] = useState(true);
   const [orderID, setOrderID] = useState(null);
 
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    zipcode: "",
+    city: "",
+    state: "",
+  });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -191,7 +199,7 @@ const Checkout = () => {
     }
     if (isDefault) {
       const saveProfile = await fetch(API_URL + "/accounts/profile/", {
-        method: "POST",
+        method: "PATCH",
         headers: {
           ...headers,
           Authorization: `Bearer ${token.access}`,
@@ -220,7 +228,7 @@ const Checkout = () => {
         </h2>
         <form>
           <div className="form-group">
-            <label for="name">Name</label>
+            <label htmlFor="name">Name</label>
             <Input
               name="name"
               value={profile.name}
@@ -228,7 +236,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="phone">Phone</label>
+            <label htmlFor="phone">Phone</label>
             <Input
               name="phone"
               value={profile.phone}
@@ -236,7 +244,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group" id="address">
-            <label for="address">Address</label>
+            <label htmlFor="address">Address</label>
             <Input
               name="address"
               value={profile.address}
@@ -244,7 +252,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="city">City</label>
+            <label htmlFor="city">City</label>
             <Input
               name="city"
               value={profile.city}
@@ -252,7 +260,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="state">State</label>
+            <label htmlFor="state">State</label>
             <Input
               name="state"
               value={profile.state}
@@ -260,7 +268,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="zip">Zip Code</label>
+            <label htmlFor="zip">Zip Code</label>
             <Input
               name="zip"
               value={profile.zipcode}
