@@ -8,6 +8,7 @@ import { refreshToken } from "../helpfulFunction";
 import updateToken from "../actionCreators/updateToken";
 import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
 import logoutUser from "../actionCreators/logout";
+import deleteToken from "../actionCreators/deleteToken";
 
 const Profile = () => {
   const token = useSelector((state) => state.token);
@@ -54,7 +55,7 @@ const Profile = () => {
 
   const handelLogout = (e) => {
     e.preventDefault();
-    dispatch(updateToken({}));
+    dispatch(deleteToken());
     dispatch(logoutUser());
     navigate("/account/login");
   };
