@@ -16,11 +16,12 @@ const NavBar = () => {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
   useEffect(() => {
-    const newtoken = refreshToken(token);
-    if (newtoken) {
-      dispatch(updateToken(newtoken));
-      dispatch(loginUser());
-    }
+    refreshToken(token).then((newToken) => {
+      if (newToken) {
+        dispatch(updateToken(newToken));
+        dispatch(loginUser());
+      }
+    });
   }, []);
 
   return (

@@ -6,7 +6,8 @@ import { headers, API_URL } from "../utils/constants";
 import { useNavigate } from "react-router";
 import { refreshToken } from "../helpfulFunction";
 import updateToken from "../actionCreators/updateToken";
-import { PrimaryButton } from "../utils/Buttons";
+import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
+import logoutUser from "../actionCreators/logout";
 
 const Profile = () => {
   const token = useSelector((state) => state.token);
@@ -16,7 +17,9 @@ const Profile = () => {
   useEffect(() => {
     getOrders();
     let newToken = refreshToken(token);
-    dispatch(updateToken(newToken));
+    if (newToken) {
+      dispatch(updateToken(newToken));
+    }
   }, []);
   const getOrders = async () => {
     const options = {
@@ -32,6 +35,7 @@ const Profile = () => {
         const data = await res.json();
         data.data.reverse();
         setOrders(data.data);
+        console.log(data.data);
       } else if (res.status === 401) {
         navigate("/account/login");
       } else {
@@ -42,6 +46,19 @@ const Profile = () => {
     } catch {
       window.alert("Not connected to the internet");
     }
+  };
+
+  const deleteOrder = (id) => {
+    const newOrders = orders.filter((order) => order.id !== id);
+    console.log(newOrders);
+    setOrders(newOrders);
+  };
+
+  const handelLogout = (e) => {
+    e.preventDefault();
+    dispatch(updateToken({}));
+    dispatch(logoutUser());
+    navigate("/account/login");
   };
 
   return (
@@ -57,8 +74,14 @@ const Profile = () => {
             </PrimaryButton>
           </div>
         ) : (
-          orders.map((o) => <Order order={o} key={o.id} />)
+          orders.map((o) => (
+            <Order order={o} key={o.id} callback={deleteOrder} />
+          ))
         )}
+      </div>
+      <div className="account">
+        <h2 className="account-title">Accounts</h2>
+        <SecondaryButton onClick={handelLogout}>Logout</SecondaryButton>
       </div>
     </StyledProfile>
   );

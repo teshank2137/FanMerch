@@ -21,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
         fields = ('id', 'user', 'total', 'status',
-                  'products', 'isPaid', 'order_date')
+                  'products', 'isPaid', 'order_date', 'razorpay_order_id')
 
 
 class CreateOrderSerializer(serializers.Serializer):

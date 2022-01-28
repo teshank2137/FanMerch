@@ -30,6 +30,18 @@ class OrderView(APIView):
 
         return Response({'status': 'bad request'}, status=400)
 
+    def delete(self, request):
+        try:
+            order = Orders.objects.get(id=request.data['id'])
+        except:
+            return Response({'error': 'Order Not found'}, status=404)
+        if order.user != request.user:
+            return Response({'error': 'Forbidden'}, status=403)
+        if order.isPaid:
+            return Response({'error': 'Order cannot be deleted'}, status=400)
+        order.delete()
+        return Response({'status': 'ok'}, status=200)
+
 
 class PaymentView(APIView):
     permission_classes = [IsAuthenticated]
