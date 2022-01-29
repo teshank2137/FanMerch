@@ -55,14 +55,8 @@ const Order = ({ order, callback }) => {
           <div className="label">Status:</div>
           {status}
         </div>
-        {!isPaid ? (
-          <div className="btn-grp">
-            <PrimaryButton onClick={checkout}>Pay Now</PrimaryButton>
-            <SecondaryButton onClick={deleteOrder}>Cancel</SecondaryButton>
-          </div>
-        ) : null}
       </div>
-      <div className="flex">
+      <div className="flex details">
         <div className="price group">
           <div className="label">Order Total:</div>
           {total}
@@ -72,6 +66,12 @@ const Order = ({ order, callback }) => {
           {formatted_date}
         </div>
       </div>
+      {!isPaid ? (
+        <div className="btn-grp">
+          <PrimaryButton onClick={checkout}>Pay Now</PrimaryButton>
+          <SecondaryButton onClick={deleteOrder}>Cancel</SecondaryButton>
+        </div>
+      ) : null}
     </StyledOrder>
   );
 };

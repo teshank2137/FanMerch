@@ -48,7 +48,6 @@ const NavBar = () => {
         </div>
         <div className="navbar-menu-item">
           <ShoppingCartIcon
-            fontSize="large"
             onClick={() => {
               navigation("/cart");
             }}
@@ -57,14 +56,12 @@ const NavBar = () => {
         <div className="navbar-menu-item">
           {auth ? (
             <PersonIcon
-              fontSize="large"
               onClick={() => {
                 navigation("/profile");
               }}
             />
           ) : (
             <LoginIcon
-              fontSize="large"
               onClick={() => {
                 navigation("/account/login");
               }}

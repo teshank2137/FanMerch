@@ -21,6 +21,26 @@ const StyledProfile = styled(StyledContainer)`
       padding: 1rem;
     }
   }
+
+  @media (max-width: 786px) {
+    .orders,
+    .account {
+      margin: 0.5rem 2rem;
+    }
+  }
+  @media (max-width: 480px) {
+    h1 {
+      margin-left: 0.5rem;
+    }
+    .orders,
+    .account {
+      margin: 0;
+    }
+    .previous-order,
+    .account-title {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 export default StyledProfile;

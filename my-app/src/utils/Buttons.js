@@ -33,6 +33,7 @@ export const Button = styled(UnStyledButton)`
 
   @media (max-width: 480px) {
     font-size: 0.8rem;
+    margin: 0.25rem;
   }
 `;
 

@@ -36,6 +36,35 @@ const StyledOrder = styled.div`
   }
   .btn-grp {
     display: flex;
+    justify-content: flex-start;
+    /* align-items: flex-start; */
+  }
+
+  @media (max-width: 786px) {
+    .label {
+      font-size: 0.8rem;
+    }
+    .price,
+    .date,
+    .status {
+      font-size: 1rem;
+    }
+
+    .details {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .btn-grp {
+      flex-direction: row;
+    }
+    .status.flex {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 `;
 

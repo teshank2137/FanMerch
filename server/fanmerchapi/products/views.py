@@ -10,7 +10,7 @@ from .serializer import ProductSerializer
 class Products(APIView):
     def get(self, request):
         try:
-            products = Product.objects.all()
+            products = Product.objects.all().order_by('price')
             serializer = ProductSerializer(products, many=True)
             res = {
                 'message': 'success',

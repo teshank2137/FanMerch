@@ -13,6 +13,9 @@ const StyledCartItem = styled.div`
   img {
     object-fit: cover;
     width: 10rem;
+    @media (max-width: 350px) {
+      width: 8rem;
+    }
   }
   .item-details {
     display: flex;
@@ -41,6 +44,26 @@ const StyledCartItem = styled.div`
       .arrow {
         cursor: pointer;
         font-size: 1.25rem;
+      }
+    }
+    @media (max-width: 480px) {
+      flex-direction: column;
+      .main {
+        .title {
+          font-size: 1rem;
+        }
+        .price {
+          font-size: 0.85rem;
+        }
+        .Qt {
+          font-size: 0.8rem;
+        }
+      }
+      .quantity {
+        align-self: flex-end;
+        .value {
+          font-size: 1rem;
+        }
       }
     }
   }

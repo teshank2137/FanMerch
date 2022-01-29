@@ -16,6 +16,10 @@ const StyledLoading = styled.div`
     width: 70px;
     height: 70px;
     object-fit: cover;
+    @media (max-width: 480px) {
+      width: 50px;
+      height: 50px;
+    }
   }
 `;
 

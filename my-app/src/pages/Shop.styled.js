@@ -3,7 +3,6 @@ import StyledContainer from "../utils/StyledContainer";
 
 const StyledShop = styled(StyledContainer)`
   h1 {
-    font-size: 2.5rem;
     margin: 1rem;
   }
   .shop-header {
@@ -39,6 +38,20 @@ const StyledShop = styled(StyledContainer)`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+  @media (max-width: 480px) {
+    .shop-header {
+      margin-right: 0;
+      .shop-sort {
+        select {
+          padding: 0.25rem;
+        }
+        p,
+        option {
+          font-size: 0.85rem;
+        }
+      }
+    }
   }
 `;
 

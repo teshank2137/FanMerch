@@ -21,11 +21,11 @@ const StyledNavbar = styled.nav`
   .leading {
     display: flex;
     gap: 0.75rem;
-    .navbar-logo {
-      height: 100%;
-      img {
-        height: 100%;
-      }
+    align-items: center;
+    .navbar-logo,
+    img {
+      height: 4.5rem;
+      width: 4.5rem;
     }
   }
 
@@ -38,8 +38,31 @@ const StyledNavbar = styled.nav`
       padding: 0rem 0.5rem;
       cursor: pointer;
       transition: all 0.15s ease-out;
+      svg {
+        font-size: 2rem;
+      }
       &:hover {
         transform: scale(1.1);
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    .leading {
+      .navbar-logo,
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+    h1 {
+      font-size: 1.25rem;
+    }
+    .navbar-menu {
+      .navbar-menu-item {
+        padding: 0rem 0.2rem;
+        svg {
+          font-size: 1.75rem;
+        }
       }
     }
   }

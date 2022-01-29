@@ -16,6 +16,9 @@ const Input = styled.input`
   }
 
   border: 1px solid #fff5;
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 export default Input;

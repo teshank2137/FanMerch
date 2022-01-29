@@ -8,6 +8,12 @@ const StyledContainer = styled.div`
     font-size: 2.5rem;
     margin: 1rem;
   }
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.85rem;
+    }
+    margin: 0 0.75rem;
+  }
 `;
 
 export default StyledContainer;
