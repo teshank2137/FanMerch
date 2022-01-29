@@ -5,26 +5,28 @@ import StyledShop from "./Shop.styled";
 import Loading from "../components/Loding";
 const Shop = () => {
   const [products, loading] = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [sort, setSort] = useState("price");
   useEffect(() => {
+    let sorted = [];
     if (sort === "price") {
-      products.sort((a, b) => {
-        if (parseInt(a.price) < parseInt(b.price)) {
-          return -1;
-        } else {
-          return 1;
-        }
+      sorted = [...products].sort((a, b) => {
+        return parseInt(a.price) - parseInt(b.price);
       });
     } else {
       //sort by name
-      products.sort((a, b) => {
+      console.log(sort);
+      sorted = [...products].sort((a, b) => {
         if (a.name.toLowerCase() < b.name.toLowerCase()) {
           return -1;
-        } else {
+        }
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
           return 1;
         }
+        return 0;
       });
     }
+    setFilteredProducts(sorted);
   }, [sort, products]);
 
   return (
@@ -41,8 +43,8 @@ const Shop = () => {
         </div>
       </div>
       <div className="shop-list">
-        {products.map((product) => (
-          <Item key={product.id} product={product} />
+        {filteredProducts.map((product, index) => (
+          <Item key={index} product={product} />
         ))}
       </div>
     </StyledShop>
