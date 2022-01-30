@@ -8,11 +8,9 @@ import Details from "./pages/Details";
 import Login from "./pages/login";
 import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
-import background from "./utils/back.svg";
 import Home from "./pages/Home";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
-import bak2 from "./assets/temp.svg";
 
 const gradient = keyframes`
 0% {

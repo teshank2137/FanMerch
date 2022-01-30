@@ -38,6 +38,7 @@ const Profile = () => {
         setError(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getOrders = async () => {

@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
 import StyledOrder from "./Order.styled";
 import { headers, API_URL } from "../utils/constants";
 
 const Order = ({ order, callback, setLoading }) => {
-  const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const navigate = useNavigate();
   const { status, order_date, total, isPaid, id } = order;

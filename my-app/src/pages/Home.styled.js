@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { hide, slideIn, shed, spacing } from "../utils/keyframes";
 
 const StyledHome = styled.div`

@@ -73,6 +73,7 @@ const Checkout = () => {
     refreshToken(token).then((newToken) =>
       newToken ? dispatch(updateToken(newToken)) : null
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handelChange = (newValue) => {
