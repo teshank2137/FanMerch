@@ -8,7 +8,6 @@ const token = (state = getToken(), action) => {
         ...tokens,
         ...action.payload,
       };
-      console.log(newTokens);
       setToken(newTokens);
       return newTokens;
     case "REMOVE_TOKEN":

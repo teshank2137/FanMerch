@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
@@ -11,23 +11,21 @@ import updateCart from "../actionCreators/updateCart";
 
 const Details = () => {
   const params = useParams();
-  const [product, loading, error] = useProducts(params.id);
+  const [product, loading] = useProducts(params.id);
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cartText, setText] = useState("Add to cart");
-  const ref = useRef(null);
   const handleCart = (e) => {
-    console.log("clicked");
     e.preventDefault();
     let productInCart = cart.find((item) => item.id === product.id);
     if (productInCart) {
-      console.log("Product already in Cart");
+      console.warn("Product already in Cart");
     } else {
       let newCartItem = product;
       newCartItem.quantity = 1;
       let newCart = [newCartItem, ...cart];
       dispatch(updateCart(newCart));
-      console.log("added to cart");
     }
   };
   useEffect(() => {
@@ -38,6 +36,13 @@ const Details = () => {
       setText("Add To cart");
     }
   }, [cart, product]);
+
+  const buyNow = (e) => {
+    e.preventDefault();
+    navigate("/checkout", {
+      state: { product: product.id, product_total: product.price },
+    });
+  };
 
   return (
     <StyledDetails>
@@ -65,7 +70,9 @@ const Details = () => {
           <SecondaryButton className="item-button cart" onClick={handleCart}>
             {cartText}
           </SecondaryButton>
-          <PrimaryButton className="item-button buy">Buy now</PrimaryButton>
+          <PrimaryButton className="item-button buy" onClick={buyNow}>
+            Buy now
+          </PrimaryButton>
         </div>
       </div>
     </StyledDetails>

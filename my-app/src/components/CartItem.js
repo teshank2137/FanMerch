@@ -31,7 +31,7 @@ const CartItem = ({ item, callback }) => {
         <div className="main">
           <div className="title">{item.name}</div>
           <div className="price">{item.price}</div>
-          <div>Qt. {quantity}</div>
+          <div className="Qt">Qt. {quantity}</div>
         </div>
         <div className="quantity">
           <div className="arrow" onClick={() => updateQuantity(-1)}>

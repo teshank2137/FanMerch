@@ -4,13 +4,15 @@ import StyledContainer from "../utils/StyledContainer";
 const StyledDetails = styled(StyledContainer)`
   display: flex;
   min-height: 100vh;
+  justify-content: center;
+  align-items: center;
   .item-image {
     width: 50%;
     display: flex;
     justify-content: center;
     img {
-      width: 40vw;
-      height: 40vw;
+      width: 30vw;
+      height: 30vw;
       object-fit: cover;
       border-radius: 0.75rem;
     }
@@ -22,6 +24,7 @@ const StyledDetails = styled(StyledContainer)`
     padding-right: 1rem;
     h1 {
       font-size: 2.5rem;
+      margin: 0;
     }
     p {
       font-size: 1.25rem;
@@ -82,7 +85,7 @@ const StyledDetails = styled(StyledContainer)`
       }
     }
   }
-  @media (max-width: 390px) {
+  @media (max-width: 480px) {
     .item-image {
       img {
         height: 250px;

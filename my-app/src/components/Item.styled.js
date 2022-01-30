@@ -6,9 +6,10 @@ const StyledItem = styled.div`
     padding: 1rem;
     cursor: pointer;
     img {
-      width: 25rem;
-      height: 25rem;
+      width: 20rem;
+      height: 20rem;
       object-fit: cover;
+      border-radius: 0.75rem;
     }
     .item-info {
       h3 {
@@ -25,8 +26,8 @@ const StyledItem = styled.div`
       margin: 0.5rem auto;
 
       img {
-        width: 100%;
-        height: auto;
+        width: 15rem;
+        height: 15rem;
       }
     }
   }

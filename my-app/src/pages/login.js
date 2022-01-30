@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { API_URL, headers } from "../utils/constants";
@@ -13,9 +13,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [disabled, setDisabled] = useState(true);
   const location = useLocation();
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (username.length >= 5 && password.length >= 7) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [username, password]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     let body = {
@@ -34,10 +43,7 @@ const Login = () => {
         setErrors();
         dispatch(updateToken(data));
         dispatch(loginUser());
-        console.log("dispatched");
-        console.log(location);
         navigation(location.state ? location.state.from.pathname : "/");
-        // navigation("/");
       } else if (response.status >= 400) {
         setError(true);
         setErrors("Incorrect Credentials");
@@ -68,7 +74,9 @@ const Login = () => {
         />
 
         <div className="btn-group">
-          <PrimaryButton onClick={handleLogin}>Login</PrimaryButton>
+          <PrimaryButton onClick={handleLogin} disabled={disabled}>
+            Login
+          </PrimaryButton>
         </div>
         <div
           className="signup-btn"

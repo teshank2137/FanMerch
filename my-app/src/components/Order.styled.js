@@ -3,9 +3,10 @@ import styled from "styled-components";
 const StyledOrder = styled.div`
   border: 1px solid #fff4;
   border-radius: 4px;
-  background: #9991;
-  backdrop-filter: blur(4px);
-  margin: 0.5rem;
+  background: #fff2;
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 9px #bebebe33, -4px -4px 9px #ffffff33;
+  margin: 1rem 0.5rem;
   padding: 1rem;
   width: 100%;
   .label {
@@ -36,6 +37,35 @@ const StyledOrder = styled.div`
   }
   .btn-grp {
     display: flex;
+    justify-content: flex-start;
+    /* align-items: flex-start; */
+  }
+
+  @media (max-width: 786px) {
+    .label {
+      font-size: 0.8rem;
+    }
+    .price,
+    .date,
+    .status {
+      font-size: 1rem;
+    }
+
+    .details {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .btn-grp {
+      flex-direction: row;
+    }
+    .status.flex {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 `;
 

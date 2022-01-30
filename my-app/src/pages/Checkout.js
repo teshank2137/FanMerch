@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { API_URL, headers, RAZORPAY_KEY } from "../utils/constants";
 import StyledCheckout from "./Checkout.styled";
 import Input from "../utils/Input.styled";
@@ -8,24 +8,45 @@ import { PrimaryButton } from "../utils/Buttons";
 import { getCartTotal, refreshToken } from "../helpfulFunction";
 import Loading from "../components/Loding";
 import updateToken from "../actionCreators/updateToken";
+import updateCart from "../actionCreators/updateCart";
 
 const Checkout = () => {
   const auth = useSelector((state) => state.auth);
   const token = useSelector((state) => state.token);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const [isDefault, setIsDefault] = useState(false);
-  const [total] = useState(getCartTotal(cart));
+  const location = useLocation();
+  const { state } = location;
+  const [total, setTotal] = useState(getCartTotal(cart));
+  const [isDefault, setIsDefault] = useState(true);
   const [orderID, setOrderID] = useState(null);
-  const [profile, setProfile] = useState({});
+
+  const [profile, setProfile] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    zipcode: "",
+    city: "",
+    state: "",
+  });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (auth === false) {
       navigate("/account/login");
     } else {
+      if (state) {
+        if (state.order_id) {
+          setOrderID(state.order_id);
+          setTotal(state.total);
+        }
+        if (state.product_total) {
+          setTotal(state.product_total);
+        }
+      }
     }
-  }, [auth, navigate]);
+  }, [auth, navigate, state]);
 
   useEffect(() => {
     setLoading(true);
@@ -42,16 +63,16 @@ const Checkout = () => {
           data.data.name = `${data.data.first_name} ${data.data.last_name}`;
           setProfile(data.data);
         })
-        .catch();
+        .catch()
+        .finally(setLoading(false));
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       document.body.appendChild(script);
     }
-    setLoading(false);
-    const newToken = refreshToken(token);
-    if (newToken) {
-      dispatch(updateToken(newToken));
-    }
+
+    refreshToken(token).then((newToken) =>
+      newToken ? dispatch(updateToken(newToken)) : null
+    );
   }, []);
 
   const handelChange = (newValue) => {
@@ -60,7 +81,12 @@ const Checkout = () => {
   };
 
   const createOrder = async (e) => {
-    const order = cart.map((item) => `${item.id}Q${item.quantity}`);
+    let order = [];
+    if (state && state.product) {
+      order = [`${state.product}Q1`];
+    } else {
+      order = cart.map((item) => `${item.id}Q${item.quantity}`);
+    }
     const options = {
       method: "POST",
       headers: {
@@ -74,7 +100,7 @@ const Checkout = () => {
     const createOrder = await fetch(API_URL + "/order/", options);
     if (createOrder.status === 401) {
       window.alert("Session expired, please login again");
-      navigate("/accounts/login");
+      navigate("/account/login");
       return;
     } else if (createOrder.status > 400) {
       window.alert("Something went wrong, please try again");
@@ -96,7 +122,7 @@ const Checkout = () => {
       },
       modal: {
         ondismiss: () => {
-          navigate("/profile");
+          navigate("/profile", { state: { failure: true } });
         },
         confirm_close: true,
       },
@@ -115,7 +141,7 @@ const Checkout = () => {
     const razor = new window.Razorpay(razorpayOptions);
     razor.open();
     razor.on("close", () => {
-      navigate("/profile");
+      navigate("/profile", { state: { failure: true } });
     });
   };
 
@@ -142,19 +168,20 @@ const Checkout = () => {
       .then((data) => {
         if (data.data.isPaid) {
           setOrderID(data.data.id);
-          console.log(data);
-          navigate("/profile");
+
+          dispatch(updateCart([]));
+          navigate("/profile", { state: { success: true } });
         } else {
-          console.log(data);
+          console.error(data);
         }
-      });
-    setLoading(false);
+      })
+      .finally(setLoading(false));
   };
 
   const handelSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    let order_id = orderID;
+    let order_id = await orderID;
     if (!orderID) {
       order_id = await createOrder();
       await setOrderID(order_id);
@@ -181,8 +208,22 @@ const Checkout = () => {
         showRazorpay(payment);
       }
     }
+    if (isDefault) {
+      const saveProfile = await fetch(API_URL + "/accounts/profile/", {
+        method: "PATCH",
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${token.access}`,
+        },
+        body: JSON.stringify(profile),
+      });
+      if (saveProfile.status === 401) {
+        navigate("/account/login");
+        return;
+      }
+    }
     setLoading(false);
-    const newToken = refreshToken(token);
+    const newToken = await refreshToken(token);
     if (newToken) {
       dispatch(updateToken(newToken));
     }
@@ -198,7 +239,7 @@ const Checkout = () => {
         </h2>
         <form>
           <div className="form-group">
-            <label for="name">Name</label>
+            <label htmlFor="name">Name</label>
             <Input
               name="name"
               value={profile.name}
@@ -206,7 +247,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="phone">Phone</label>
+            <label htmlFor="phone">Phone</label>
             <Input
               name="phone"
               value={profile.phone}
@@ -214,7 +255,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group" id="address">
-            <label for="address">Address</label>
+            <label htmlFor="address">Address</label>
             <Input
               name="address"
               value={profile.address}
@@ -222,7 +263,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="city">City</label>
+            <label htmlFor="city">City</label>
             <Input
               name="city"
               value={profile.city}
@@ -230,7 +271,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="state">State</label>
+            <label htmlFor="state">State</label>
             <Input
               name="state"
               value={profile.state}
@@ -238,7 +279,7 @@ const Checkout = () => {
             />
           </div>
           <div className="form-group">
-            <label for="zip">Zip Code</label>
+            <label htmlFor="zip">Zip Code</label>
             <Input
               name="zip"
               value={profile.zipcode}
@@ -250,7 +291,8 @@ const Checkout = () => {
               Set as default{" "}
               <input
                 type="checkbox"
-                value={isDefault}
+                value="save"
+                checked={isDefault}
                 onChange={(e) => setIsDefault(!isDefault)}
               />
             </div>
@@ -258,6 +300,14 @@ const Checkout = () => {
           </div>
         </form>
       </main>
+      <footer>
+        This website is for educational purpose any order placed wont't be
+        delivered.
+        <div>
+          Use <strong>success@razorpay</strong>: To make the payment successful
+          and <strong>failure@razorpay</strong>: To fail the payment.
+        </div>
+      </footer>
     </StyledCheckout>
   );
 };

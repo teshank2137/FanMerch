@@ -2,8 +2,8 @@ import styled from "styled-components";
 import StyledContainer from "../utils/StyledContainer";
 
 const StyledCheckout = styled(StyledContainer)`
+  padding-bottom: 2.5rem;
   h1 {
-    font-size: 2.5rem;
     margin-left: 0;
   }
   main {
@@ -34,6 +34,49 @@ const StyledCheckout = styled(StyledContainer)`
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-end;
+      }
+    }
+  }
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    background: #fff6;
+    border-radius: 1rem 1rem 0 0;
+    li {
+      list-style: none;
+    }
+  }
+  @media (max-width: 786px) {
+    main {
+      form {
+        grid-template-columns: 1fr;
+        #address {
+          grid-column: span 1;
+        }
+      }
+    }
+  }
+  @media (max-width: 480px) {
+    main {
+      h2 {
+        font-size: 0.85rem;
+        .total {
+          font-size: 1.35rem;
+        }
+      }
+      form {
+        .form-group {
+          label {
+            font-size: 0.85rem;
+          }
+        }
       }
     }
   }

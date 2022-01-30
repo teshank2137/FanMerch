@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { API_URL, headers } from "./utils/constants";
 
 export const getCartItems = () => {
@@ -8,7 +7,6 @@ export const getCartItems = () => {
 
 export const setCart = (cart) => {
   window.localStorage.setItem("cart", JSON.stringify(cart));
-  console.log("cart saved in localStorage");
   return getCartItems();
 };
 

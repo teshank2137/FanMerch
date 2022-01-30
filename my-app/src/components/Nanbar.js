@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { refreshToken } from "../helpfulFunction";
 import updateToken from "../actionCreators/updateToken";
+import logo from "../assets/fanMerchLogo.png";
 
 const NavBar = () => {
   const navigation = useNavigate();
@@ -16,11 +17,12 @@ const NavBar = () => {
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
   useEffect(() => {
-    const newtoken = refreshToken(token);
-    if (newtoken) {
-      dispatch(updateToken(newtoken));
-      dispatch(loginUser());
-    }
+    refreshToken(token).then((newToken) => {
+      if (newToken) {
+        dispatch(updateToken(newToken));
+        dispatch(loginUser());
+      }
+    });
   }, []);
 
   return (
@@ -32,7 +34,7 @@ const NavBar = () => {
         }}
       >
         <div className="navbar-logo">
-          <img src="https://via.placeholder.com/50/" alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <h1 className="navbar-title">FanMerch</h1>
       </div>
@@ -47,7 +49,6 @@ const NavBar = () => {
         </div>
         <div className="navbar-menu-item">
           <ShoppingCartIcon
-            fontSize="large"
             onClick={() => {
               navigation("/cart");
             }}
@@ -56,14 +57,12 @@ const NavBar = () => {
         <div className="navbar-menu-item">
           {auth ? (
             <PersonIcon
-              fontSize="large"
               onClick={() => {
                 navigation("/profile");
               }}
             />
           ) : (
             <LoginIcon
-              fontSize="large"
               onClick={() => {
                 navigation("/account/login");
               }}

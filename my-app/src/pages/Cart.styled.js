@@ -6,7 +6,6 @@ const StyledCart = styled(StyledContainer)`
   flex-direction: column;
   margin-bottom: 2rem;
   h1 {
-    font-size: 2.5rem;
     margin: 1rem;
     margin-bottom: 0;
   }
@@ -24,6 +23,15 @@ const StyledCart = styled(StyledContainer)`
     font-size: 1.25rem;
     h3 {
       padding: 1rem;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .add-items {
+      font-size: 1rem;
+    }
+    .cart-total {
+      font-size: 1rem;
     }
   }
 `;
