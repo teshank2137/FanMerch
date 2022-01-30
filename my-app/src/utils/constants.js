@@ -1,4 +1,4 @@
-export const API_URL = "http://localhost:8000";
+export const API_URL = "https://fanmerch.pythonanywhere.com/";
 
 export const headers = {
   "Content-Type": "application/json",
