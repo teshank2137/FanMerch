@@ -7,7 +7,7 @@ let localCache = [];
 
 const useProducts = (id = null) => {
   const [products, setResponse] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const token = useSelector((state) => state.token);
   const dispatch = useDispatch();
@@ -31,7 +31,8 @@ const useProducts = (id = null) => {
           .catch((err) => {
             console.error(err);
             setError(true);
-          });
+          })
+          .finally(setLoading(false));
       }
     } else {
       fetch(`${API_URL}/product`)
@@ -46,9 +47,9 @@ const useProducts = (id = null) => {
         .catch((err) => {
           console.error(err);
           setError(true);
-        });
+        })
+        .finally(setLoading(false));
     }
-    setLoading(false);
     const newToken = refreshToken(token);
     if (newToken) {
       dispatch(updateToken(newToken));

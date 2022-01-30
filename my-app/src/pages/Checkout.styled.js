@@ -37,6 +37,22 @@ const StyledCheckout = styled(StyledContainer)`
       }
     }
   }
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem;
+    background: #fff6;
+    border-radius: 1rem 1rem 0 0;
+    li {
+      list-style: none;
+    }
+  }
   @media (max-width: 786px) {
     main {
       form {

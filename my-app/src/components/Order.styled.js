@@ -3,9 +3,10 @@ import styled from "styled-components";
 const StyledOrder = styled.div`
   border: 1px solid #fff4;
   border-radius: 4px;
-  background: #9991;
-  backdrop-filter: blur(4px);
-  margin: 0.5rem;
+  background: #fff2;
+  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 9px #bebebe33, -4px -4px 9px #ffffff33;
+  margin: 1rem 0.5rem;
   padding: 1rem;
   width: 100%;
   .label {

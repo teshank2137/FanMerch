@@ -4,6 +4,8 @@ import StyledContainer from "../utils/StyledContainer";
 const StyledDetails = styled(StyledContainer)`
   display: flex;
   min-height: 100vh;
+  justify-content: center;
+  align-items: center;
   .item-image {
     width: 50%;
     display: flex;

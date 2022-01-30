@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { fadeIn } from "./keyframes";
 
 const StyledContainer = styled.div`
+  animation: ${fadeIn} 0.5s ease-out;
   margin: 0 1.5rem;
   padding-top: 5rem;
   min-height: 100vh;

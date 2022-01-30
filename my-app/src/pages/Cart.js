@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion/dist/framer-motion";
+
 import CartItem from "../components/CartItem";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledCart from "./Cart.styled";
@@ -34,14 +36,20 @@ const Cart = () => {
       )}
 
       <div className="cart">
-        {cart.map((item) => (
-          <CartItem
-            key={item.id}
-            item={item}
-            callback={() => {
-              setTotal(getCartTotal(cart));
-            }}
-          />
+        {cart.map((item, i) => (
+          <motion.div
+            initial={{ opacity: 0, translateX: -100 }}
+            animate={{ opacity: 1, translateX: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 * i }}
+          >
+            <CartItem
+              key={item.id}
+              item={item}
+              callback={() => {
+                setTotal(getCartTotal(cart));
+              }}
+            />
+          </motion.div>
         ))}
       </div>
       {cart.length <= 3 ? null : (

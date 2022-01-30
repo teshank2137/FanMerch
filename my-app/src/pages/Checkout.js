@@ -17,7 +17,7 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
-  const [total] = useState(getCartTotal(cart));
+  const [total, setTotal] = useState(getCartTotal(cart));
   const [isDefault, setIsDefault] = useState(true);
   const [orderID, setOrderID] = useState(null);
 
@@ -37,7 +37,13 @@ const Checkout = () => {
       navigate("/account/login");
     } else {
       if (state) {
-        setOrderID(state.order_id);
+        if (state.order_id) {
+          setOrderID(state.order_id);
+          setTotal(state.total);
+        }
+        if (state.product_total) {
+          setTotal(state.product_total);
+        }
       }
     }
   }, [auth, navigate, state]);
@@ -75,7 +81,12 @@ const Checkout = () => {
   };
 
   const createOrder = async (e) => {
-    const order = cart.map((item) => `${item.id}Q${item.quantity}`);
+    let order = [];
+    if (state && state.product) {
+      order = [`${state.product}Q1`];
+    } else {
+      order = cart.map((item) => `${item.id}Q${item.quantity}`);
+    }
     const options = {
       method: "POST",
       headers: {
@@ -111,7 +122,7 @@ const Checkout = () => {
       },
       modal: {
         ondismiss: () => {
-          navigate("/profile");
+          navigate("/profile", { state: { failure: true } });
         },
         confirm_close: true,
       },
@@ -130,7 +141,7 @@ const Checkout = () => {
     const razor = new window.Razorpay(razorpayOptions);
     razor.open();
     razor.on("close", () => {
-      navigate("/profile");
+      navigate("/profile", { state: { failure: true } });
     });
   };
 
@@ -159,7 +170,7 @@ const Checkout = () => {
           setOrderID(data.data.id);
 
           dispatch(updateCart([]));
-          navigate("/profile");
+          navigate("/profile", { state: { success: true } });
         } else {
           console.error(data);
         }
@@ -289,6 +300,14 @@ const Checkout = () => {
           </div>
         </form>
       </main>
+      <footer>
+        This website is for educational purpose any order placed wont't be
+        delivered.
+        <div>
+          Use <strong>success@razorpay</strong>: To make the payment successful
+          and <strong>failure@razorpay</strong>: To fail the payment.
+        </div>
+      </footer>
     </StyledCheckout>
   );
 };

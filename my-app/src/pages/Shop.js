@@ -15,7 +15,6 @@ const Shop = () => {
       });
     } else {
       //sort by name
-      console.log(sort);
       sorted = [...products].sort((a, b) => {
         if (a.name.toLowerCase() < b.name.toLowerCase()) {
           return -1;

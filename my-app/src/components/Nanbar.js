@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { refreshToken } from "../helpfulFunction";
 import updateToken from "../actionCreators/updateToken";
+import logo from "../assets/fanMerchLogo.png";
 
 const NavBar = () => {
   const navigation = useNavigate();
@@ -33,7 +34,7 @@ const NavBar = () => {
         }}
       >
         <div className="navbar-logo">
-          <img src="https://via.placeholder.com/50/" alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <h1 className="navbar-title">FanMerch</h1>
       </div>

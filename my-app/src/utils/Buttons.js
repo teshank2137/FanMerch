@@ -40,10 +40,11 @@ export const Button = styled(UnStyledButton)`
 export const PrimaryButton = styled(Button)`
   background-image: linear-gradient(
     to right,
-    #02aab0 0%,
-    #00cdac 51%,
-    #02aab0 100%
+    #1fa2ff 0%,
+    #12d8fa 51%,
+    #1fa2ff 100%
   );
+
   background-size: 200% auto;
   color: white;
   &:hover {
@@ -57,9 +58,9 @@ export const PrimaryButton = styled(Button)`
 
 export const SecondaryButton = styled(Button)`
   border: 3px solid;
-  border-color: #02aab0;
+  border-color: #1fa2ff;
   &:hover {
-    border-color: #00cdac;
+    border-color: #12d8fa;
   }
   &:active {
     transform: scale(0.9);

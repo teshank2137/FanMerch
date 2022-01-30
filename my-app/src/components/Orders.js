@@ -4,7 +4,7 @@ import { PrimaryButton, SecondaryButton } from "../utils/Buttons";
 import StyledOrder from "./Order.styled";
 import { headers, API_URL } from "../utils/constants";
 
-const Order = ({ order, callback }) => {
+const Order = ({ order, callback, setLoading }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const Order = ({ order, callback }) => {
     d.getFullYear();
 
   const deleteOrder = async () => {
+    setLoading(true);
     const options = {
       method: "DELETE",
       headers: {
@@ -40,12 +41,14 @@ const Order = ({ order, callback }) => {
       }
     } catch {
       window.alert("Not connected to the internet");
+    } finally {
+      setLoading(false);
     }
   };
 
   const checkout = (e) => {
     e.preventDefault();
-    navigate("/checkout", { state: { order_id: id } });
+    navigate("/checkout", { state: { order_id: id, total: total } });
   };
 
   return (

@@ -5,14 +5,14 @@ const Input = styled.input`
   padding: 1.5rem 1rem;
   outline: none;
   border: none;
-  color: #fff;
+  color: #10164d;
   font-size: 1.25rem;
   border-radius: 6px;
   background: #fff1;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   &::placeholder {
-    color: #fffa;
+    color: #10164daa;
   }
 
   border: 1px solid #fff5;

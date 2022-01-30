@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { shed } from "../utils/keyframes";
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -12,6 +13,7 @@ const StyledNavbar = styled.nav`
   background: linear-gradient(
     0deg,
     rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
     rgba(0, 0, 0, 0.4) 100%
   );
 
@@ -22,10 +24,15 @@ const StyledNavbar = styled.nav`
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    cursor: pointer;
     .navbar-logo,
     img {
       height: 4.5rem;
       width: 4.5rem;
+      padding: 0.2rem;
+      &:hover {
+        animation: ${shed} 2s infinite;
+      }
     }
   }
 
