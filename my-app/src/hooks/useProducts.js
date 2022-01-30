@@ -54,6 +54,7 @@ const useProducts = (id = null) => {
     if (newToken) {
       dispatch(updateToken(newToken));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return [products, loading, error];
