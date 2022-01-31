@@ -5,12 +5,12 @@ import { Provider } from "react-redux";
 import store from "./store";
 import NavBar from "./components/Nanbar";
 import Loading from "./components/Loding";
+import Home from "./pages/Home";
 const Cart = lazy(() => import("./pages/Cart"));
 const Details = lazy(() => import("./pages/Details"));
 const Login = lazy(() => import("./pages/login"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Signup = lazy(() => import("./pages/Signup"));
-const Home = lazy(() => import("./pages/Home"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Profile = lazy(() => import("./pages/Profile"));
 
