@@ -7,6 +7,7 @@ import { PrimaryButton } from "../utils/Buttons";
 import StyledLogin from "./login.styled";
 import Input from "../utils/Input.styled";
 import loginUser from "../actionCreators/login";
+import Loading from "../components/Loding";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ const Login = () => {
   const [error, setError] = useState(false);
   const [errors, setErrors] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigation = useNavigate();
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const Login = () => {
       username: username,
       password: password,
     };
+    setLoading(true);
     try {
       let response = await fetch(API_URL + "/accounts/token/", {
         method: "POST",
@@ -52,40 +55,44 @@ const Login = () => {
       setErrors("Connection Lost");
       setError(true);
     }
+    setLoading(false);
   };
   return (
-    <StyledLogin>
-      <h1>Login</h1>
-      <div className="login-form">
-        {error ? <div className="errors">{errors}</div> : null}
-        <Input
-          className="login-input"
-          type="text"
-          placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <Input
-          className="login-input"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    <>
+      {loading ? <Loading /> : null}
+      <StyledLogin>
+        <h1>Login</h1>
+        <div className="login-form">
+          {error ? <div className="errors">{errors}</div> : null}
+          <Input
+            className="login-input"
+            type="text"
+            placeholder="Email"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            className="login-input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <div className="btn-group">
-          <PrimaryButton onClick={handleLogin} disabled={disabled}>
-            Login
-          </PrimaryButton>
+          <div className="btn-group">
+            <PrimaryButton onClick={handleLogin} disabled={disabled}>
+              Login
+            </PrimaryButton>
+          </div>
+          <div
+            className="signup-btn"
+            onClick={(e) => navigation("/account/signup")}
+          >
+            New User? Signup here
+          </div>
         </div>
-        <div
-          className="signup-btn"
-          onClick={(e) => navigation("/account/signup")}
-        >
-          New User? Signup here
-        </div>
-      </div>
-    </StyledLogin>
+      </StyledLogin>
+    </>
   );
 };
 

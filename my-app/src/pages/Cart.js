@@ -38,9 +38,9 @@ const Cart = () => {
       <div className="cart">
         {cart.map((item, i) => (
           <motion.div
-            initial={{ opacity: 0, translateX: -100 }}
+            initial={{ opacity: 0, translateX: -50 }}
             animate={{ opacity: 1, translateX: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 * i }}
+            transition={{ duration: 0.8, delay: 0.2 * i }}
           >
             <CartItem
               key={item.id}

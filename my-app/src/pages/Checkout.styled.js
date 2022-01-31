@@ -3,6 +3,7 @@ import StyledContainer from "../utils/StyledContainer";
 
 const StyledCheckout = styled(StyledContainer)`
   padding-bottom: 2.5rem;
+  min-height: 100vh;
   h1 {
     margin-left: 0;
   }

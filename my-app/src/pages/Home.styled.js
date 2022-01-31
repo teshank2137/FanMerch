@@ -31,7 +31,7 @@ const StyledHome = styled.div`
   .socials {
     display: flex;
     transform-style: preserve-3d;
-    animation: ${slideIn} 2s ease;
+    animation: ${slideIn} 1.6s ease;
     align-items: center;
     .socials-item {
       padding: 0.5rem 0.75rem;
@@ -53,10 +53,10 @@ const StyledHome = styled.div`
     padding: 0.25rem;
     font-weight: 500;
     text-align: center;
-    animation: ${slideIn} 2s ease;
+    animation: ${slideIn} 1.2s ease;
   }
   .btn {
-    animation: ${slideIn} 2s ease;
+    animation: ${slideIn} 1.4s ease;
   }
   .footer {
     position: absolute;

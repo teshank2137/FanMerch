@@ -5,7 +5,6 @@ const StyledContainer = styled.div`
   animation: ${fadeIn} 0.5s ease-out;
   margin: 0 1.5rem;
   padding-top: 5rem;
-  min-height: 100vh;
   h1 {
     font-size: 2.5rem;
     margin: 1rem;
