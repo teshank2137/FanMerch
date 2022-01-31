@@ -93,60 +93,66 @@ const Profile = () => {
     setError(false);
   };
   return (
-    <StyledProfile>
+    <>
       {loading ? <Loading /> : null}
-      <h1>Profile</h1>
-      <Snackbar
-        open={success}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Order Placed Successfully 🙌
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={error}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Order Failed 😞
-        </Alert>
-      </Snackbar>
-      <div className="orders">
-        <h2 className="previous-order">Previous Orders</h2>
-        {orders.length === 0 ? (
-          <div className="add-items">
-            <h3>You Haven't ordered Anything</h3>
-            <PrimaryButton className="btn" onClick={(e) => navigate("/shop")}>
-              Shop now
-            </PrimaryButton>
-          </div>
-        ) : (
-          orders.map((o, i) => (
-            <motion.div
-              initial={{ opacity: 0, translateX: -100 }}
-              animate={{ opacity: 1, translateX: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-            >
-              <Order
-                order={o}
-                key={o.id}
-                callback={deleteOrder}
-                setLoading={setLoading}
-              />
-            </motion.div>
-          ))
-        )}
-      </div>
-      <div className="account">
-        <h2 className="account-title">Accounts</h2>
-        <SecondaryButton onClick={handelLogout}>Logout</SecondaryButton>
-      </div>
-    </StyledProfile>
+      <StyledProfile>
+        <h1>Profile</h1>
+        <Snackbar
+          open={success}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Order Placed Successfully 🙌
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            Order Failed 😞
+          </Alert>
+        </Snackbar>
+        <div className="orders">
+          <h2 className="previous-order">Previous Orders</h2>
+          {orders.length === 0 ? (
+            <div className="add-items">
+              <h3>You Haven't ordered Anything</h3>
+              <PrimaryButton className="btn" onClick={(e) => navigate("/shop")}>
+                Shop now
+              </PrimaryButton>
+            </div>
+          ) : (
+            orders.map((o, i) => (
+              <motion.div
+                initial={{ opacity: 0, translateX: -100 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * i }}
+              >
+                <Order
+                  order={o}
+                  key={o.id}
+                  callback={deleteOrder}
+                  setLoading={setLoading}
+                />
+              </motion.div>
+            ))
+          )}
+        </div>
+        <div className="account">
+          <h2 className="account-title">Accounts</h2>
+          <SecondaryButton onClick={handelLogout}>Logout</SecondaryButton>
+        </div>
+      </StyledProfile>
+    </>
   );
 };
 export default Profile;

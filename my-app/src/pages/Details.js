@@ -45,37 +45,39 @@ const Details = () => {
   };
 
   return (
-    <StyledDetails>
+    <>
       {loading ? <Loading /> : null}
-      <div className="item-image">
-        <img src={API_URL + product.image} alt={product.name} />
-      </div>
-      <div className="item-details">
-        <h1>{product.name}</h1>
-        <p>{product.description}</p>
-        <p className="item-price">{product.price}</p>
-        {product.size ? (
-          <div className="size-selector">
-            <p>Select size</p>
-            <select>
-              {product.size.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-          </div>
-        ) : null}
-        <div className="button-container">
-          <SecondaryButton className="item-button cart" onClick={handleCart}>
-            {cartText}
-          </SecondaryButton>
-          <PrimaryButton className="item-button buy" onClick={buyNow}>
-            Buy now
-          </PrimaryButton>
+      <StyledDetails>
+        <div className="item-image">
+          <img src={API_URL + product.image} alt={product.name} />
         </div>
-      </div>
-    </StyledDetails>
+        <div className="item-details">
+          <h1>{product.name}</h1>
+          <p>{product.description}</p>
+          <p className="item-price">{product.price}</p>
+          {product.size ? (
+            <div className="size-selector">
+              <p>Select size</p>
+              <select>
+                {product.size.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+          <div className="button-container">
+            <SecondaryButton className="item-button cart" onClick={handleCart}>
+              {cartText}
+            </SecondaryButton>
+            <PrimaryButton className="item-button buy" onClick={buyNow}>
+              Buy now
+            </PrimaryButton>
+          </div>
+        </div>
+      </StyledDetails>
+    </>
   );
 };
 

@@ -29,24 +29,26 @@ const Shop = () => {
   }, [sort, products]);
 
   return (
-    <StyledShop className="shop-container">
+    <>
       {loading ? <Loading /> : null}
-      <div className="shop-header">
-        <h1 className="title">Shop</h1>
-        <div className="shop-sort">
-          <p>Sort by:</p>
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="price">Price</option>
-            <option value="name">Name</option>
-          </select>
+      <StyledShop className="shop-container">
+        <div className="shop-header">
+          <h1 className="title">Shop</h1>
+          <div className="shop-sort">
+            <p>Sort by:</p>
+            <select value={sort} onChange={(e) => setSort(e.target.value)}>
+              <option value="price">Price</option>
+              <option value="name">Name</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div className="shop-list">
-        {filteredProducts.map((product, index) => (
-          <Item key={index} product={product} />
-        ))}
-      </div>
-    </StyledShop>
+        <div className="shop-list">
+          {filteredProducts.map((product, index) => (
+            <Item key={index} product={product} />
+          ))}
+        </div>
+      </StyledShop>
+    </>
   );
 };
 export default Shop;

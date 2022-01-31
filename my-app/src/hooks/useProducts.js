@@ -27,12 +27,13 @@ const useProducts = (id = null) => {
           .then((data) => {
             localCache.push(data);
             setResponse(data);
+            setLoading(false);
           })
           .catch((err) => {
             console.error(err);
             setError(true);
-          })
-          .finally(setLoading(false));
+            setLoading(false);
+          });
       }
     } else {
       fetch(`${API_URL}/product`)
@@ -43,12 +44,13 @@ const useProducts = (id = null) => {
           //   localCache.length = 0;
           localCache.push(...data.data);
           setResponse(data.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.error(err);
           setError(true);
-        })
-        .finally(setLoading(false));
+          setLoading(false);
+        });
     }
     const newToken = refreshToken(token);
     if (newToken) {

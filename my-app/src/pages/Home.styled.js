@@ -16,12 +16,14 @@ const StyledHome = styled.div`
     font-size: 4rem;
     padding: 0.1rem;
     font-weight: 500;
-    animation: ${spacing} 1.5s ease-out;
+    animation: ${spacing} 1s ease-out;
   }
   .logo {
     img {
       width: 8rem;
     }
+    animation: ${shed} 2s ease;
+    animation-delay: 2s;
     &:hover {
       animation: ${shed} 2s ease infinite;
     }

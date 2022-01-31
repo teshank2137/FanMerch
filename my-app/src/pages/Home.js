@@ -15,7 +15,7 @@ const Home = () => {
     <div>
       <StyledHome>
         <div className="header">
-          {["l", "i", "p", "o", "k", "i", "c", "h", "u"].map((word, i) => {
+          {["l", "i", "p", "y", "c", "h", "u"].map((word, i) => {
             return (
               <span className={`title`} key={i}>
                 {word}
