@@ -41,6 +41,7 @@ const Cart = () => {
             initial={{ opacity: 0, translateX: -50 }}
             animate={{ opacity: 1, translateX: 0 }}
             transition={{ duration: 0.8, delay: 0.2 * i }}
+            key={item.id}
           >
             <CartItem
               key={item.id}
