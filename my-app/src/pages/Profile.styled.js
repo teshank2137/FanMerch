@@ -34,7 +34,7 @@ const StyledProfile = styled(StyledContainer)`
     }
     .orders,
     .account {
-      margin: 0;
+      margin: 0 0.25rem 0 0;
     }
     .previous-order,
     .account-title {

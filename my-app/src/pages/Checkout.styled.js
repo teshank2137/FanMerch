@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { hide } from "../utils/keyframes";
 import StyledContainer from "../utils/StyledContainer";
 
 const StyledCheckout = styled(StyledContainer)`
@@ -44,15 +45,18 @@ const StyledCheckout = styled(StyledContainer)`
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 0;
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
     padding: 1rem;
     background: #fff6;
     border-radius: 1rem 1rem 0 0;
+    opacity: 0;
+    z-index: -1;
     li {
       list-style: none;
     }
+    animation: ${hide} 10s ease-out;
   }
   @media (max-width: 786px) {
     main {

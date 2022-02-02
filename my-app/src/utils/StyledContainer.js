@@ -14,6 +14,7 @@ const StyledContainer = styled.div`
       font-size: 1.85rem;
     }
     margin: 0 0.75rem;
+    padding-top: 3.2rem;
   }
 `;
 

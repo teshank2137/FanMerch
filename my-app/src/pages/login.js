@@ -46,7 +46,9 @@ const Login = () => {
         setErrors();
         dispatch(updateToken(data));
         dispatch(loginUser());
-        navigation(location.state ? location.state.from.pathname : "/");
+        navigation(location.state ? location.state.from.pathname : "/", {
+          state: { ...location.state },
+        });
       } else if (response.status >= 400) {
         setError(true);
         setErrors("Incorrect Credentials");

@@ -34,7 +34,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (auth === false) {
-      navigate("/account/login");
+      navigate("/account/login", { state: { ...state, from: location } });
     } else {
       if (state) {
         if (state.order_id) {
@@ -46,7 +46,7 @@ const Checkout = () => {
         }
       }
     }
-  }, [auth, navigate, state]);
+  }, [auth, navigate, state, location]);
 
   useEffect(() => {
     setLoading(true);
