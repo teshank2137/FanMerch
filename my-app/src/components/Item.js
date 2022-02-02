@@ -18,7 +18,7 @@ const Item = (props) => {
 
         <div className="item-info">
           <h3>{name}</h3>
-          <p>{price}</p>
+          <p>&#8377; {price}</p>
         </div>
       </div>
     </StyledItem>
