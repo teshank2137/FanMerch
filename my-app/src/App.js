@@ -30,8 +30,8 @@ const StyledBackground = styled.div`
     background: linear-gradient(-45deg, #b5fffc, #8ec5fc, #e0c3fc, #ffdee9);
     background-size: 400% 400%;
     animation: ${gradient} 10s infinite;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     position: fixed;
     z-index: -1;
   }

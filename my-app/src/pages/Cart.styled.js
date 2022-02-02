@@ -26,7 +26,7 @@ const StyledCart = styled(StyledContainer)`
     }
   }
 
-  @media (max-width: 380px) {
+  @media (max-width: 480px) {
     .add-items {
       font-size: 1rem;
     }

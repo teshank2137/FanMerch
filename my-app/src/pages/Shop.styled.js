@@ -35,9 +35,18 @@ const StyledShop = styled(StyledContainer)`
   }
   .shop-list {
     padding: 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    @media (max-width: 905px) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 0.35rem;
+    }
+
+    @media (max-width: 786px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0.25rem;
+    }
   }
   @media (max-width: 480px) {
     .shop-header {
