@@ -1,12 +1,11 @@
+import { motion } from "framer-motion/dist/framer-motion";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { motion } from "framer-motion/dist/framer-motion";
-
 import CartItem from "../components/CartItem";
+import { getCartTotal } from "../helpfulFunction";
 import { PrimaryButton } from "../utils/Buttons";
 import StyledCart from "./Cart.styled";
-import { getCartTotal } from "../helpfulFunction";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);

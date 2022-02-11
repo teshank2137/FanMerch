@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import { API_URL, headers, RAZORPAY_KEY } from "../utils/constants";
-import StyledCheckout from "./Checkout.styled";
-import Input from "../utils/Input.styled";
-import { PrimaryButton } from "../utils/Buttons";
-import { getCartTotal, refreshToken } from "../helpfulFunction";
-import Loading from "../components/Loding";
-import updateToken from "../actionCreators/updateToken";
 import updateCart from "../actionCreators/updateCart";
+import updateToken from "../actionCreators/updateToken";
+import Loading from "../components/Loding";
+import { getCartTotal, refreshToken } from "../helpfulFunction";
+import { PrimaryButton } from "../utils/Buttons";
+import { API_URL, headers, RAZORPAY_KEY } from "../utils/constants";
+import Input from "../utils/Input.styled";
+import StyledCheckout from "./Checkout.styled";
 
 const Checkout = () => {
   const auth = useSelector((state) => state.auth);
